@@ -1,5 +1,5 @@
 var formEl = document.querySelector("#task-form");
-var tasksToDoEl = document.querySelector("#tasks-to-do");
+var tasksToDoEl = document.querySelector("#tasksToDo");
 
 var taskFormHandler = function(event) {
   event.preventDefault();
