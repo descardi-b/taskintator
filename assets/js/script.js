@@ -1,32 +1,45 @@
-// Assign JavaScript variable to the entire form
 var formEl = document.querySelector("#task-form");
+var tasksToDoEl = document.querySelector("#tasks-to-do");
 
-// Assign JavaScript variable to the parent ul element
-var tasksToDoEl = document.querySelector("#tasksToDo");
+var taskFormHandler = function(event) {
+  event.preventDefault();
+  var taskNameInput = document.querySelector("input[name='task-name'").value;
+  var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
-// Create a function that appends child li elements to the parent ul elemnt
-var createTaskHandler = function (event) {
-    // Initiate first callback function
+  // check if inputs are empty (validate)
+  if (taskNameInput === "" || taskTypeInput === "") {
+    alert("You need to fill out the task form!");
+    return false;
+  }
 
-    event.preventDefault();
+  formEl.reset();
 
-    var taskNameInput = document.querySelector("input[name='task-name']").value;
-    var taskTypeInput = document.querySelector("select[name='task-type']").value;
-
-    var listItemEl = document.createElement("li");
-    listItemEl.className = "task-item";
-
-    // Create div to hold task info and task type together
-    var taskInfoEl = document.createElement("div");
-    taskInfoEl.className = "task-info";
-    taskInfoEl.innerHTML = `<h3 class='task-name'>${taskNameInput}</h3><span class='task-type'>${taskTypeInput}</span>`;
-
-    // Append all form submissions to the list item
-    listItemEl.appendChild(taskInfoEl);
-
-    // Append the new list item to the parent ul element
-    tasksToDoEl.appendChild(listItemEl);
+  // reset form fields for next task to be entered
+  document.querySelector("input[name='task-name']").value = "";
+  document.querySelector("select[name='task-type']").selectedIndex = 0;
+  
+  var taskDataObj = {
+    name: taskNameInput,
+    type: taskTypeInput
   };
 
-// Add a click event listener for formEl to run the createTaskHandler function 
-formEl.addEventListener("submit", createTaskHandler);
+  createTaskEl(taskDataObj);
+
+};
+
+var createTaskEl = function(taskDataObj) {
+  // create list item
+  var listItemEl = document.createElement("li");
+  listItemEl.className = "task-item";
+
+  // create div to hold task info and add to list item
+  var taskInfoEl = document.createElement("div");
+  taskInfoEl.className = "task-info";
+  taskInfoEl.innerHTML = `<h3 class='task-name'>${taskDataObj.name}</h3><span class='task-type'>${taskDataObj.type}</span>`;
+  listItemEl.appendChild(taskInfoEl);
+
+  // add list item to list
+  tasksToDoEl.appendChild(listItemEl);
+};
+
+formEl.addEventListener("submit", taskFormHandler);
