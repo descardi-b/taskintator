@@ -146,7 +146,7 @@ var completeEditTask = function (taskName, taskType, taskId) {
   // remove data attribute from form
   formEl.removeAttribute("data-task-id");
   // update formEl button to go back to saying "Add Task" instead of "Edit Task"
-  formEl.querySelector("#save-task").textContent = "Add Task";
+  formEl.querySelector("#taskAdder").textContent = "Add Task";
   // save tasks to localStorage
   saveTasks();
 };
@@ -220,7 +220,7 @@ var editTask = function (taskId) {
   // set data attribute to the form with a value of the task's id so it knows which one is being edited
   formEl.setAttribute("data-task-id", taskId);
   // update form's button to reflect editing a task rather than creating a new one
-  formEl.querySelector("#save-task").textContent = "Save Task";
+  formEl.querySelector("#taskAdder").textContent = "Save Task";
 };
 
 var deleteTask = function (taskId) {
